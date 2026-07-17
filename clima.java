@@ -1,9 +1,13 @@
 public class clima {
     public static void main(String[] args) {
-        double price = 99.99;
-        int intPrice = (int) price;
+        int points = 5;
+        int bonus = 10;
+        int lives = 3;
 
-        System.out.println(price);
-        System.out.println(intPrice);
+        int result1 = points++;
+        int result2 = ++bonus;
+        int result3 = --lives;
+        int result4 = lives--;
+
     }
 }
