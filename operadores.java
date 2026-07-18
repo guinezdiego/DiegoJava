@@ -30,7 +30,26 @@ public class operadores {
         int d = 5;
         d += 3; // d contiene 8
         int e = 15;
-        e -= 10;
+        e -= 10; // e contiene 5
+
+        // operadores de comparacion
+        int var1 = 13;
+        int var2 = 12;
+        boolean var3 = var1 != var2;
+
+        int wi = 10;
+        int pi = 20;
+        boolean result = wi > pi;
+
+        // comparar cadenas
+        String str1 = "hello";
+        String str2 = "hello";
+        String str3 = "Hello";
+        boolean result1 = str1.equals(str2);
+        boolean result2 = str1.equals(str3);
+
+        // comparar sin considerar mayusculas y minusculas
+        boolean result3 = str3.equalsIgnoreCase(str2);
         
     }
 }
