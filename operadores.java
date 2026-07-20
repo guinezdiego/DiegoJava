@@ -51,5 +51,18 @@ public class operadores {
         // comparar sin considerar mayusculas y minusculas
         boolean result3 = str3.equalsIgnoreCase(str2);
         
+        // operadores &&, || y !
+        boolean b1 = (5 > 3) && (1 == 1); // && devuelve true cuando ambos son verdaderos
+        boolean b2 = !(5 == 4) || (5 == 2); // || devuelve true cuando alguno sea verdadero
+        boolean b3 = !(1 == 1); // si el resultado es true ,'!' lo cambia por false y viceversa
+
+        boolean isStudent = false;
+        boolean isEmployed = false;
+
+        // estas dos expreciones son equivalentes
+        boolean result5 = !(isStudent || isEmployed); // true
+        boolean result6 = !(isStudent) && !(isEmployed); // true
+
+        
     }
 }
