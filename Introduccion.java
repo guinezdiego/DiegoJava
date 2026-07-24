@@ -27,10 +27,13 @@ public class Introduccion {
         // Constantes
         final int valor_max = 100;
         final String palabra2 = "Esto no se puede cambiar";
+        System.out.println(valor_max);
+        System.out.println(palabra2);
 
         // Conversion int a double
         int num = 5;
         double punto = num; // Se convierte automaticamente en 5.0
+        System.out.println(punto);
 
         // Con calculo
         int x = 7;
@@ -40,11 +43,13 @@ public class Introduccion {
         // Conversion double a int
         double deci = 9.7;
         int number = (int) deci; // Se convierte en 9
+        System.out.println(number);
 
         // Con calculo
         double precio = 19.99;
         int redondearPrecio = (int) precio;
-        
+        System.out.println(redondearPrecio);
+
         // Convertir int, double y boolean a String
         int number1 = 789;
         double number2 = 789;
@@ -53,17 +58,22 @@ public class Introduccion {
         String text1 = String.valueOf(number1);
         String text2 = String.valueOf(number2);
         String text3 = String.valueOf(esValido);
+        System.out.println(text1);
+        System.out.println(text2);
+        System.out.println(text3);
 
         // Convertir String a int, double y boolean
         String numeroTexto = "123";
         int number3 = Integer.parseInt(numeroTexto); // Se convierte en 123
+        System.out.println(number3);
 
         String textoDecimal = "45.67";
         double decimal1 = Double.parseDouble(textoDecimal);
+        System.out.println(decimal1);
 
         String textoBool = "false";
         boolean esReal = Boolean.parseBoolean(textoBool);
-        
+        System.out.println(esReal);
     }
 }
 
