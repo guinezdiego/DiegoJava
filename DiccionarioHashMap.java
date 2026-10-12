@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 
 public class DiccionarioHashMap {
 
@@ -73,6 +74,209 @@ public class DiccionarioHashMap {
         }
         return data;
     }
+
+    public static void testHashMapMethods(HashMap<String, Integer> data) {
+        if (data.isEmpty()) {
+            System.out.println("Is empty: " + true);
+        } else {
+            System.out.println("Is empty: " + false);
+        }
+
+        int num = data.size();
+        System.out.println("Size: " + num);
+
+        data.clear();
+
+        if (data.isEmpty()) {
+            System.out.println("Is empty after clear: " + true);
+        }
+    }
+
+    public static void modifyAndResetHashMap(HashMap<String, Integer> data) {
+        if (data.isEmpty()) {
+            System.out.println("Is empty: " + true);
+        } else {
+            System.out.println("Is empty: " + false);
+        }
+
+        System.out.println("Size: " + data.size());
+
+        if (data.containsKey("Reset")) {
+            System.out.println("Size after modification: " + data.size());
+        } else {
+            data.put("Reset", 0);
+            System.out.println("Size after modification: " + data.size());
+        }
+
+        data.clear();
+
+        if (data.isEmpty()) {
+            System.out.println("Is empty after clear: " + true);
+        }
+    }
+
+    public static void printInventory(HashMap<String, Integer> inventory) {
+        for (String producto : inventory.keySet()) {
+            System.out.println("Producto: " + producto + ", cantidad: " + inventory.get(producto));
+        }
+    }
+
+    public static void printFilteredInventoryKeySet(HashMap<String, Integer> inventory) {
+        for (String producto : inventory.keySet()) {
+            if (inventory.get(producto) > 20) {
+                System.out.println("Producto: " + producto + ", cantidad: " + inventory.get(producto));
+            } else {
+                System.out.println("No hay productos con una cantidad mayor");
+            }
+        }
+    }
+
+    public static void printInventoryEntrySet(HashMap<String, Integer> inventory) {
+        for (Map.Entry<String, Integer> product : inventory.entrySet()) {
+            System.out.println("Producto: " + product.getKey() + ", cantidad: " + product.getValue());
+        }
+    }
+
+    public static void printMostStockedProduct(HashMap<String, Integer> inventory) {
+        String nombre = null;
+        int num = 0;
+
+        if (inventory.isEmpty()) {
+            System.out.println("No products in inventory");
+        } else {
+            for (Map.Entry<String, Integer> product : inventory.entrySet()) {
+                if (product.getValue() > num) {
+                    num = product.getValue();
+                    nombre = product.getKey();
+                }
+            }
+            System.out.println("Most Stocked Product: " + nombre + ", Quantity: " + num);
+        }
+    }
+
+    public static void printNestedInventory(HashMap<String, HashMap<String, Integer>> inventory) {
+        for (String categoria : inventory.keySet()) {
+            System.out.println("Categoria: " + categoria);
+
+            HashMap<String, Integer> items = inventory.get(categoria);
+
+            if (items.isEmpty()) {
+                System.out.println("  (No hay productos)");
+            } else {
+                for (String product : items.keySet()) {
+                    System.out.println("  Producto: " + product + " , precio: " + items.get(product));
+                }
+            }
+        }
+    }
+
+    public static void printMostExpensiveProducts(HashMap<String, HashMap<String, Integer>> inventory) {
+        if (inventory.isEmpty()) {
+            System.out.println("No hay categorias en el inventario.");
+        } else {
+            for (String categoria : inventory.keySet()) {
+                String proCaro = null;
+                int masCaro = 0;
+                System.out.println("Categoria: " + categoria);
+
+                HashMap<String, Integer> items = inventory.get(categoria);
+
+                if (items.isEmpty()) {
+                    System.out.println("  No hay productos disponibles");
+                } else {
+                    for (String producto : items.keySet()) {
+                        if (items.get(producto) > masCaro) {
+                            masCaro = items.get(producto);
+                            proCaro = producto;
+                        }
+                    }
+                    System.out.println("  El producto mas caro: " + proCaro + ", precio: " + masCaro);
+                }
+            }
+        }
+    }
+
+    public static void manageWarehouse(HashMap<String, Integer> warehouse, String[] operaciones) {
+        for (int i = 0; i < operaciones.length; i++) {
+            String operacion = operaciones[i];
+            String[] op = operacion.split(" ");
+
+            
+            if (op[0].equals("ADD")) {
+                int cant = Integer.parseInt(op[2]);
+
+                if (warehouse.containsKey(op[1])) {
+                    warehouse.replace(op[1], warehouse.get(op[1]) + cant);
+                } else {
+                    warehouse.put(op[1], cant);
+                }
+            }
+
+            if (op[0].equals("REMOVE")) {
+                int cant = Integer.parseInt(op[2]);
+
+                if (warehouse.get(op[1]) - cant <= 0) {
+                    warehouse.remove(op[1]);
+                } else {
+                    warehouse.replace(op[1], warehouse.get(op[1]) - cant);
+                }
+            }
+
+            if (op[0].equals("CHECK")) {
+                if (warehouse.containsKey(op[1])) {
+                    System.out.println(true);
+                } else {
+                    System.out.println(false);
+                }
+            }
+
+            if (op[0].equals("PRINT")) {
+                for (String producto : warehouse.keySet()) {
+                    System.out.println("Product: " + producto + ", Quantity: " + warehouse.get(producto));
+                } 
+            }
+        }
+    }
+
+    public static HashMap<String, Object> processHashMap(HashMap<String, Double> products) {
+        String highestProduct = "";
+        double highestPrice = 0;
+        HashMap<String, Double> filteredProducts = new HashMap<>();
+        double totalPrice = 0;
+
+        if (products.isEmpty()) {
+            HashMap<String, Object> result = new HashMap<>();
+            result.put("Highest", "");
+            result.put("Filtered", filteredProducts);
+            result.put("Average", 0.0);
+            return result;
+        }
+
+        for (Map.Entry<String, Double> entry : products.entrySet()) {
+            String product = entry.getKey();
+            double price = entry.getValue();
+            totalPrice += price;
+
+            if (price > highestPrice) {
+                highestPrice = price;
+                highestProduct = product;
+            }
+
+            if (price > 50) {
+                filteredProducts.put(product, price);
+            }
+        }
+
+        double averagePrice = totalPrice / products.size();
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("Highest", highestProduct);
+        result.put("Filtered", filteredProducts);
+        result.put("Average", averagePrice);
+
+        return result;
+    }
+    
     public static void main(String[] args) {
         // Un HashMap es una estructura de datos que almacena pares clave-valor
         // Te permite recuperar rapidamente un valor mediante su clave asociada
@@ -136,17 +340,56 @@ public class DiccionarioHashMap {
         // size() devuelve la cantidad de clave-valr en el HashMap
         // clear() elimina todos los mapeos del HashMap
 
-        HashMap<String, Integer> scores = new HashMap<>();
+        // HashMap<String, Integer> scores = new HashMap<>();
 
-        System.out.println(scores.isEmpty());
+        // System.out.println(scores.isEmpty());
 
-        scores.put("Coddy", 100);
-        System.out.println(scores.isEmpty());
+        // scores.put("Coddy", 100);
+        // System.out.println(scores.isEmpty());
 
-        System.out.println(scores.size());
+        // System.out.println(scores.size());
 
-        scores.clear();
-        System.out.println(scores.isEmpty()); 
+        // scores.clear();
+        // System.out.println(scores.isEmpty());
+
+        // Iterar con keySet() significa obe¿tener un conjunto de todas las claves de HashMap
+        // Y despues usar el metodo get() para obtener los valores correspondientes
+
+        // HashMap<String, Integer> inventory = new HashMap<>();
+        // inventory.put("Laptop", 10);
+        // inventory.put("Mouse", 50);
+        // inventory.put("Keyboard", 30);
+
+        // for (String producto : inventory.keySet()) {
+        //     System.out.println("Producto: " + producto + ", cantidad: " + inventory.get(producto));
+        // }
+
+
+        // Iterar con entrySet() significa obtener un conjunto de objetos Map.Entry del HashMap
+        // Cada Map.Entry porporciona tanto la clave como su valor, lo que lo hace mas eficiente
+
+        // HashMap<String, Integer> inventory = new HashMap<>();
+        // inventory.put("Laptop", 10);
+        // inventory.put("Mouse", 50);
+        // inventory.put("Keyboard", 30);
+
+        // for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+        //     System.out.println("Product: " + entry.getKey() + ", cantidad: " + entry.getValue());
+        // }
+
+
+        // Un HashMap anidado es un HashMap cuyos valores son, HashMaps
+        // Esto nos permite organizar datos complejos jerarquicamente.
+
+        HashMap<String, HashMap<String, Integer>> inventory = new HashMap<>();
+
+        inventory.put("Electronics", new HashMap<>());
+        inventory.get("Electronics").put("Laptop", 1200);
+        inventory.put("Videojuegos", new HashMap<>());
+        inventory.get("Videojuegos").put("Jump Force", 30000);
+
+        for (Map.Entry<String, HashMap<String, Integer>> producto : inventory.entrySet()) {
+            System.out.println("Tipo: " + producto.getKey() + ", contiene: " + producto.getValue());
+        }
     }
-
 }
